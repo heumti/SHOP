@@ -1,6 +1,13 @@
+import { useState, useEffect } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
 
 const About = () => {
+  const [count, setCount] = useState(0);
+  useEffect(()=>{
+    console.log('안녕');
+    console.log(count)
+  })
+
   const tabs = [
     { to: '/about', label: '회사소개', end: true },
     { to: '/about/member', label: 'Member' },
@@ -33,6 +40,13 @@ const About = () => {
       <div className="bg-white rounded-lg shadow-sm p-6 text-gray-700">
         <Outlet></Outlet>
       </div>
+
+      <button
+        className="mt-6 border border-gray-500 text-gray-600 hover:bg-gray-500 hover:text-white font-medium text-sm px-4 py-2 rounded transition-colors cursor-pointer"
+        onClick={()=>{ setCount(count + 1) }}
+      >
+        버튼
+      </button>
     </div>
   )
 }

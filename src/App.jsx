@@ -5,11 +5,12 @@ import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import Home from './components/Home';
 import Detail from './components/Detail';
 import About from './components/About';
+import Footer from './components/Footer';
 
 
 function App() {
-  // data.js의 상품 배열을 state로 보관. 값을 바꿀 일이 아직 없어서 setShoes는 받지 않음
-  const[shoes] = useState(data);
+  // data.js의 상품 배열을 state로 보관
+  const[shoes, setShoes] = useState(data);
   //console.log(shoes[0].price);
   const navigate = useNavigate();
   return (
@@ -53,7 +54,7 @@ function App() {
       </nav>
 
       <Routes>
-        <Route path="/" element={<Home shoes={shoes} />} />
+        <Route path="/" element={<Home shoes={shoes} setShoes={setShoes} />} />
         <Route path="/detail/:id" element={<Detail shoes={shoes} />} />
         <Route path="*" element={<div>없는 페이지입니다.</div>} />
         <Route path="/about" element={<About />} >
@@ -62,6 +63,8 @@ function App() {
           <Route path="location" element={<div>Location 페이지입니다..</div>} />
         </Route>
       </Routes>
+
+      <Footer />
 
     </div>
   );

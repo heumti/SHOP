@@ -5,3 +5,19 @@
   background-size: cover;                 /* 비율을 지키면서 상자를 꽉 채움 (넘치는 부분은 잘림) */
   background-position: center;            /* 잘릴 때 가운데를 기준으로 보여 줌 */
 }
+
+.start{
+  opacity: 0;
+}
+.end{
+  opacity: 1;
+  transition: opacity 0.5s;
+}
+
+.detail-start{
+  transform: scale(0);
+}
+.detail-end{
+  transform: scale(1);
+  transition: all 0.5s;
+}
