@@ -6,9 +6,12 @@ import Home from './components/Home';
 import Detail from './components/Detail';
 import About from './components/About';
 import Footer from './components/Footer';
+import Cart from './components/Cart';
+import { useSelector } from 'react-redux';
 
 
 function App() {
+  useSelector((state)=> {return state}) 
   // data.js의 상품 배열을 state로 보관
   const[shoes, setShoes] = useState(data);
   //console.log(shoes[0].price);
@@ -56,6 +59,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home shoes={shoes} setShoes={setShoes} />} />
         <Route path="/detail/:id" element={<Detail shoes={shoes} />} />
+        <Route path="/cart" element={<Cart />} />
         <Route path="*" element={<div>없는 페이지입니다.</div>} />
         <Route path="/about" element={<About />} >
           <Route index element={<div>회사 소개 페이지입니다..</div>} />

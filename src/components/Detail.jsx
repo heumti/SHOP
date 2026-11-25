@@ -1,7 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import TabContent from './TabContent'
+import styled from 'styled-components'
 
+const Box = styled.div`
+padding: 20px 0;
+color: gray;
+`;
+
+const Yellobtn = styled.button`
+color: white;
+font-size: 30px;
+width: 100%;
+padding: 100px;
+border: 1px solid #ccc;
+background-image: url('https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?q=80&w=698&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D');
+background-size: cover;
+background-position: center;
+//background: ${props => props.bg};
+//color: ${props => props.bg == 'blue' ? 'white': 'black' };
+//padding: 10px; 
+`
 const Detail = (props) => {
   const { id } = useParams();
   console.log(id);
@@ -39,6 +58,12 @@ const Detail = (props) => {
           2초이내 구매시 할인
         </div>
       }
+
+      <Box>
+        <Yellobtn >지금 구매하면 10% 할인</Yellobtn>
+          
+      </Box>
+      
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
         <div className="w-full">
