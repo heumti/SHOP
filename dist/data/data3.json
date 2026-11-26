@@ -1,0 +1,23 @@
+[
+  {
+    "id": 7,
+    "title": "나이키 상품 7",
+    "imgUrl": "/img/nike/nike7.jpg",
+    "content": "상품 설명 7",
+    "price": 189000
+  },
+  {
+    "id": 8,
+    "title": "나이키 상품 8",
+    "imgUrl": "/img/nike/nike8.jpg",
+    "content": "상품 설명 8",
+    "price": 159000
+  },
+  {
+    "id": 9,
+    "title": "나이키 상품 9",
+    "imgUrl": "/img/nike/nike9.jpg",
+    "content": "상품 설명 9",
+    "price": 139000
+  }
+]

@@ -1,23 +1,17 @@
-/* 메인 배경 이미지 영역 */
-.slider{
-  height: 500px;                          /* 상자 높이. 배경 이미지는 내용이 없으면 높이가 0이라 꼭 정해 줘야 보임 */
-  background-image: url('/img/bg.jpg');   /* public 폴더 기준 주소. public/img/bg.jpg → /img/bg.jpg */
-  background-size: cover;                 /* 비율을 지키면서 상자를 꽉 채움 (넘치는 부분은 잘림) */
-  background-position: center;            /* 잘릴 때 가운데를 기준으로 보여 줌 */
+.slider {
+  height: 500px;
+  background-image: url('/img/bg.jpg');
+  background-size: cover;
+  background-position: center;
 }
 
-.start{
-  opacity: 0;
-}
-.end{
-  opacity: 1;
-  transition: opacity 0.5s;
-}
-
-.detail-start{
+.start {
+  /* opacity: 0; */
   transform: scale(0);
 }
-.detail-end{
+
+.end {
+  /* opacity: 1; */
   transform: scale(1);
   transition: all 0.5s;
 }

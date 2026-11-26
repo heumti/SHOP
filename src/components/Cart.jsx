@@ -1,57 +1,80 @@
-import { useSelector, useDispatch } from 'react-redux'
-import { changeName, increase, addCount, sortName } from '../store'
-import Order from './Order'
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { changeName, increase } from '../features/userSlice';
+import { addCount, addItem, sortName } from '../features/cartSlice';
 
-function Cart() {
-  const state = useSelector((state) => state);
-  const { name, age } = state.user;
-  const cart = state.cart;
-  const dispatch = useDispatch();
+const Cart = () => {
+  const {name, age} = useSelector(state => state.user)
+  const cart = useSelector(state => state.cart)
+  const dispatch = useDispatch();  // store로 요청 보내는 함수  
 
   return (
-    <div className="flex flex-col items-center w-full space-y-6">
-      <h5 className="text-xl font-bold text-gray-800 tracking-tight flex items-center gap-1.5">
-        {name} {age}의 장바구니
-      </h5>
+    <div className="flex flex-col items-center w-full space-y-5">
+        <h5 className="text-xl font-bold text-gray-900 tracking-tight flex items-center gap-1.5">
+            {name} ({age})의 장바구니
+        </h5>
 
-      <div className="flex flex-wrap justify-center gap-2.5 w-full">
-        <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm px-4 py-2.5 rounded-xl transition-all shadow-sm active:scale-95 transform" onClick={()=>{dispatch(changeName())}}>
-          관우로 이름 바꾸기
-        </button>
+        <div className="flex flex-wrap justify-center gap-2.5 w-full">
+            <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm px-4 py-2.5 rounded-xl transition-all shadow-sm active:scale-95 transform" onClick={()=>{dispatch(changeName())}}>
+                관우로 이름 바꾸기
+            </button>
+            <button className="bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-sm px-4 py-2.5 rounded-xl transition-all shadow-sm active:scale-95 transform flex items-center gap-1" onClick={()=>{dispatch(increase(1))}}>
+                나이 +
+            </button>
+            <button className="bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium text-sm px-4 py-2.5 rounded-xl transition-all active:scale-95 transform flex items-center gap-1" onClick={()=>{dispatch(increase(-1))}}>
+                나이 -
+            </button>
+        </div>
 
-        <button className="bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-sm px-4 py-2.5 rounded-xl transition-all shadow-sm active:scale-95 transform flex items-center gap-1" onClick={()=>{dispatch(increase(1))}}>
-          나이 +
-        </button>
+        <div className="max-w-7xl mx-auto px-4 w-full py-8">
+            <div className="border border-gray-200 mb-5">
+                <table className="min-w-full divide-y divide-gray-200 text-left text-gray-500">
+                    <thead className="bg-gray-50 text-gray-700 uppercase tracking-wider font-semibold">
+                        <tr>
+                            <th scope="col" className="px-6 py-3.5">id</th>
+                            <th scope="col" className="px-6 py-3.5">이미지</th>
+                            <th scope="col" className="px-6 py-3.5">상품명</th>
+                            <th scope="col" className="px-6 py-3.5">수량</th>
+                            <th scope="col" className="px-6 py-3.5 text-center">변경하기</th>
+                        </tr>
+                    </thead>
+                    <tbody className="bg-white divide-y divide-gray-100 text-gray-900">
+                        {
+                            cart.map(item => 
+                                <tr className="hover:bg-gray-50 transition-colors" key={item.id}>
+                                    <td className="px-6 py-4 text-gray-400 font-normal">{item.id}</td>
+                                    <td className="px-6 py-4">
+                                        <img src={import.meta.env.BASE_URL + item.imgUrl} alt="상품이미지" className="w-16 h-auto" />
+                                    </td>
+                                    <td className="px-6 py-4 font-semibold text-gray-900">{item.item}</td>
+                                    <td className="px-6 py-4">
+                                        <span className="bg-gray-100 text-gray-800 text-xs px-2.5 py-1 rounded-full font-bold">{item.amount}개</span>
+                                    </td>
+                                    <td className="px-6 py-4 text-center">
+                                        <button className="inline-flex items-center justify-center w-7 h-7 bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white rounded-full transition-all active:scale-90 font-bold shadow-sm" onClick={()=> {dispatch(addCount(item.id))}}>
+                                            +
+                                        </button>
+                                    </td>
+                                </tr>
+                            )
+                        }
+                        
+                        
+                    </tbody>
+                </table>
+            </div>
 
-        <button className="bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium text-sm px-4 py-2.5 rounded-xl transition-all active:scale-95 transform flex items-center gap-1" onClick={()=>{dispatch(increase(-1))}}>
-          나이 -
-        </button>
-      </div>
-
-      <div className="w-full max-w-md">
-        <h4 className="text-lg font-bold text-gray-800 mb-3">id 상품명 수량 변경하기</h4>
-        <ul className="divide-y divide-gray-200 border border-gray-200 rounded-lg">
-          {
-            cart.map((a, i) =>
-              <li key={i} className="flex items-center gap-4 px-4 py-2">
-                <span className="w-6 text-gray-500">{a.id}</span>
-                <span className="flex-1 text-gray-800">{a.item}</span>
-                <span className="w-8 text-right font-semibold">{a.amount}</span>
-                <button className="border border-gray-300 hover:bg-gray-100 text-sm px-2.5 py-0.5 rounded cursor-pointer" onClick={()=>{dispatch(addCount(a.id))}}>
-                  +
+            <div className="flex justify-center">
+                <button className="border border-gray-300 hover:border-gray-400 text-gray-700 bg-white hover:bg-gray-50 font-medium text-xs px-3.5 py-2 rounded-lg transition-colors active:bg-gray-100 shadow-sm flex items-center gap-1" onClick={()=>{dispatch(sortName())}}>
+                    이름순 정렬
                 </button>
-              </li>
-            )
-          }
-        </ul>
-        <button className="mt-3 border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white text-sm px-4 py-2 rounded transition-colors cursor-pointer" onClick={()=>{dispatch(sortName())}}>
-          이름순정렬
-        </button>
-      </div>
+            </div>
+        </div>
 
-      <Order />
     </div>
   )
 }
+
+
 
 export default Cart
