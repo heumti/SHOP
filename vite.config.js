@@ -8,5 +8,7 @@ export default defineConfig({
     react(),
     tailwindcss()
   ],
-  base: '/SHOP/'
+  // Vercel은 루트(/)에서, GitHub Pages는 /SHOP/ 에서 서비스됨
+  // Vercel 빌드 시 VERCEL=1 환경변수가 자동으로 설정됨
+  base: process.env.VERCEL ? '/' : '/SHOP/'
 })
